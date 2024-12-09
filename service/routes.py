@@ -97,7 +97,6 @@ def create_products():
 ######################################################################
 # L I S T   A L L   P R O D U C T S
 ######################################################################
-
 @app.route("/products", methods=["GET"])
 def get_all_products():
     """Returns a list of Products"""
@@ -120,15 +119,14 @@ def get_all_products():
     else:
         app.logger.info("Return all products")
         products = Product.all()
-     
     results = [product.serialize() for product in products]
     app.logger.info("[%s] All products returned", len(results))
     return results, status.HTTP_200_OK
 
+
 ######################################################################
 # R E A D   A   P R O D U C T
 ######################################################################
-
 @app.route("/products/<int:product_id>", methods=["GET"])
 def get_products(product_id):
     """Get Products by product ID"""
@@ -138,10 +136,10 @@ def get_products(product_id):
     message = product.serialize()
     return message, status.HTTP_200_OK
 
+
 ######################################################################
 # U P D A T E   A   P R O D U C T
 ######################################################################
-
 @app.route("/products/<int:product_id>", methods=["PUT"])
 def update_products(product_id):
     """Update a Product based the body posted"""
@@ -154,15 +152,14 @@ def update_products(product_id):
     product.update()
     return product.serialize(), status.HTTP_200_OK
 
+
 ######################################################################
 # D E L E T E   A   P R O D U C T
 ######################################################################
-
 @app.route("/products/<int:product_id>", methods=["DELETE"])
 def delete_products(product_id):
     """Delete a Product based the product id"""
     product = Product.find(product_id)
     if product:
         product.delete()
-
     return "", status.HTTP_204_NO_CONTENT
